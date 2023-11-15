@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>document</title>
+</head>
+<style>
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #caccd1;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        h1 {
+            color: #fff;
+            background-color: #00c16e;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .fa-delete-left {
+            color: #000000;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: cyan;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        li:hover{
+            background-color: 	#F48924;
+        }
+        button:hover{
+            background-color: #f48924;
+        }
+        .fa-filter{
+            cursor: pointer;
+        }
+        .filter_icon{
+            display: flex;
+        }
+        .line{
+            display: flex;
+            justify-content: space-between;
+        }
+</style>
+
+   <!-- ** -->
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>To Do List</h1>
+            <div class="line">
+                <input type="text" id="word">
+                <button onclick="add()">Add</button>
+                <div class="filter_icon">
+                    <i class="fa-solid fa-filter straight" style="color: #37393a;" onclick="filter_data()"></i>
+                    <i class="fa-solid fa-filter reverse" style="color: black; display: none; " onclick="filter_data_reverse()"></i>
+                </div>
+            </div>
+            <ul id="test">
+
+            </ul>
+        </div>
+    </div>
+    
+    <!-- script -->
+
+    <script>
+        const star = document.querySelector('.straight');
+        const revenge = document.querySelector('.reverse');
+        let toDo=[]
+        function add() {
+            toDo.push(word.value)
+            data(toDo)
+            word.value=""
+        }
+
+        function data(arr) {
+            test.innerHTML="";
+            arr.forEach((item,index)=>{
+                test.innerHTML+=`<li>${item}<i class="fa-solid fa-delete-left" onclick="remove(this,${index})"></li>`
+            })
+        }
+     
+        function remove(x,i) {
+            toDo.splice(i,1)
+            x.parentElement.remove()
+        }
+
+        function filter_data() {
+            sort_array=toDo.sort();
+            data(sort_array);
+            straight.style.display = 'none';
+            reverse.style.display = 'block';
+        }
+
+        function filter_data_reverse() {
+            sort_array=toDo.sort().reverse();
+            data(sort_array);
+            straight.style.display = 'block';
+            reverse.style.display = 'none';
+        }
+    </script>
+    <script>
+        const straight = document.querySelector('.straight');
+        const reverse = document.querySelector('.reverse');
+        let toDoList = [];
+    
+        function add() {
+            const inputValue = word.value.trim(); // Boşluqları əngəlləmək üçün trim funksiyasını istifadə edirik
+            if (inputValue !== "") { // Boşluq olmadığı təqdirdə add etməyə davam et
+                toDo.push(inputValue);
+                data(toDo);
+                word.value = "";
+            }
+        }
+    
+        function data(arr) {
+            test.innerHTML = "";
+            arr.forEach((item, index) => {
+                test.innerHTML += `<li>${item}<i class="fa-solid fa-delete-left" onclick="remove(this,${index})"></li>`;
+            });
+        }
+    
+        function remove(x, i) {
+            toDo.splice(i, 1);
+            x.parentElement.remove();
+        }
+    
+        function filter_data() {
+            sort_array = toDo.sort();
+            data(sort_array);
+            straight.style.display = 'none';
+            reverse.style.display = 'block';
+        }
+    
+        function filter_data_reverse() {
+            sort_array = toDo.sort().reverse();
+            data(sort_array);
+            straight.style.display = 'block';
+            reverse.style.display = 'none';
+        }
+    
+        // Input üçün keypress hadisəsi
+        word.addEventListener('keypress', function (e) {
+            if (e.key === " " && !word.value.trim()) {
+                e.preventDefault(); // Boşluq düyməsinə basdıqda və input boş olduğu zaman əməliyyatı dayandırırıq
+            }
+        });
+    </script>
+</body>
+</html>
+
